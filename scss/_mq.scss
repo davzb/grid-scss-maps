@@ -1,0 +1,5 @@
+@mixin respond-to ($property, $query) {
+    @media ($property: $query) {
+        @content
+    }
+}

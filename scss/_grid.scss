@@ -1,0 +1,32 @@
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -#{gutter};
+}
+
+@mixin responsiveGrid ($size: 'xs') {
+    @for $i from 1 through $columns {
+        .col-#{$size}-#{$i} {
+            width: percentage($i / $columns);
+            padding: 0 $gutter;
+        }
+    }
+}
+
+@each $breakpoints in map-keys($grid-breakpoints) {
+    @if ($breakpoints == 'xs') {
+        @include responsiveGrid;
+    }
+    @else {
+        @include respond-to (min-width, #{map-get($grid-breakpoints, $breakpoints)}) {
+            @include responsiveGrid ($breakpoints);
+        }
+    }
+}
+
